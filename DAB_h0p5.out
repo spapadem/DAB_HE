@@ -1,0 +1,54 @@
+
+signal (15): Terminated
+in expression starting at /home/symeon/Wave2D/DABF/HE2D_corner.jl:91
+gc_try_setmark at /buildworker/worker/package_linux64/build/src/gc.c:1576 [inlined]
+gc_mark_queue_obj at /buildworker/worker/package_linux64/build/src/gc.c:1629 [inlined]
+mark_roots at /buildworker/worker/package_linux64/build/src/gc.c:2505
+_jl_gc_collect at /buildworker/worker/package_linux64/build/src/gc.c:2696
+jl_gc_collect at /buildworker/worker/package_linux64/build/src/gc.c:2874
+jl_gc_pool_alloc at /buildworker/worker/package_linux64/build/src/gc.c:1102
+jl_gc_alloc_ at /buildworker/worker/package_linux64/build/src/julia_internal.h:263 [inlined]
+_new_array_ at /buildworker/worker/package_linux64/build/src/array.c:112 [inlined]
+_new_array at /buildworker/worker/package_linux64/build/src/array.c:160 [inlined]
+jl_alloc_array_1d at /buildworker/worker/package_linux64/build/src/array.c:420
+Type at ./boot.jl:402 [inlined]
+Type at ./boot.jl:411 [inlined]
+Type at ./boot.jl:419 [inlined]
+similar at ./abstractarray.jl:618 [inlined]
+similar at ./abstractarray.jl:617 [inlined]
+similar at ./broadcast.jl:196 [inlined]
+copy at ./broadcast.jl:773 [inlined]
+materialize at ./broadcast.jl:753 [inlined]
+ChkNodeEx at /home/symeon/Wave2D/DABF/ChkNodeEx.jl:10
+intNodes at /home/symeon/Wave2D/DABF/intNodes.jl:101
+unknown function (ip: 0x7f9a3839d9e7)
+jl_fptr_trampoline at /buildworker/worker/package_linux64/build/src/gf.c:1864
+jl_apply_generic at /buildworker/worker/package_linux64/build/src/gf.c:2219
+do_call at /buildworker/worker/package_linux64/build/src/interpreter.c:323
+eval_value at /buildworker/worker/package_linux64/build/src/interpreter.c:411
+eval_stmt_value at /buildworker/worker/package_linux64/build/src/interpreter.c:362 [inlined]
+eval_body at /buildworker/worker/package_linux64/build/src/interpreter.c:773
+jl_interpret_toplevel_thunk_callback at /buildworker/worker/package_linux64/build/src/interpreter.c:885
+unknown function (ip: 0xfffffffffffffffe)
+unknown function (ip: 0x7f9a39f6dd1f)
+unknown function (ip: 0xffffffffffffffff)
+jl_interpret_toplevel_thunk at /buildworker/worker/package_linux64/build/src/interpreter.c:894
+jl_toplevel_eval_flex at /buildworker/worker/package_linux64/build/src/toplevel.c:764
+jl_toplevel_eval_flex at /buildworker/worker/package_linux64/build/src/toplevel.c:713
+jl_parse_eval_all at /buildworker/worker/package_linux64/build/src/ast.c:883
+jl_load at /buildworker/worker/package_linux64/build/src/toplevel.c:826
+include at ./boot.jl:326 [inlined]
+include_relative at ./loading.jl:1038
+include at ./sysimg.jl:29
+jl_apply_generic at /buildworker/worker/package_linux64/build/src/gf.c:2219
+exec_options at ./client.jl:267
+_start at ./client.jl:436
+jl_apply_generic at /buildworker/worker/package_linux64/build/src/gf.c:2219
+unknown function (ip: 0x40191d)
+unknown function (ip: 0x401523)
+__libc_start_main at /lib64/libc.so.6 (unknown line)
+unknown function (ip: 0x4015c4)
+unknown function (ip: 0xffffffffffffffff)
+Allocations: 48203399 (Pool: 44397494; Big: 3805905); GC: 133262
+Creating initial mesh.
+Creating additional nodes.
