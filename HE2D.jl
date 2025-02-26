@@ -1,6 +1,7 @@
 using SparseArrays
 using LinearAlgebra
 using Printf
+using Plots
 
 #function  W2DFE_Dbc_RK4(r,hx,hy)
 
@@ -16,10 +17,12 @@ include("GLpw.jl")
 include("ID.jl")
 include("intNodes.jl")
 include("intWeights.jl")
-include("KMtrx.jl")
+# include("KMtrx.jl")
 include("Mesh2Drect.jl")
-include("MMtrx.jl")
+# include("MMtrx.jl")
 include("norm_calc.jl")
+include("I1.jl")
+include("I2.jl")
 include("I3.jl")
 include("I4.jl")
 include("I5.jl")
@@ -47,7 +50,7 @@ xE = 17*lambda_0;  # Location of ABC.
 nL = (xE-xI)/hx;
 P  = 10;  		   # Order of ABC.
 #Problem setup
-r = 1;
+r = 3;
 x  = Array(0 : hx : xE);    
 y  = Array(0 : hy : b );
 Nx = length(x);
@@ -136,12 +139,12 @@ println("Creating element matrices.")
 # Create Gauss-Lobatto weights for the reference element points.
 gj = intWeights(r,2,2);
 # Element Stiffness and Mass matrices for rectangular elements.
-I1e = MMtrx(r,hx,hy,gj,pref,elref);
-I2e = KMtrx(r,hx,hy,gj,pref,elref);
+I1e = I1(r,hx,hy,gj,pref,elref);
+I2e = I2(r,hx,hy,gj,pref,elref);
 I3e = I3(r,hy,gj,pref,elref);
 I4e = I4(r,hy,gj,pref,elref);
-I5e = I5(r,hy,gj,pref,elref);
-I6e = I6(r,hy,gj,pref,elref);
+I5e = I5(r,hx,hy,gj,pref,elref);
+I6e = I6(r,hx,hy,gj,pref,elref);
 # Assemble the stiffness and mass matrices for all the D.O.F.`s.
 println("Assembling matrices.")
 M  = spzeros(Complex{Float64},Ndof,Ndof);
@@ -203,7 +206,7 @@ for l = 1 : Nel
 		end
 	end
 
-	Fel = I1e*fel;
+	local Fel = I1e*fel;
 	for k = 1 : (r+1)^2
 		ind1 = Int(DOF[el[l,k]]);
 		if ind1 != 0
@@ -286,6 +289,7 @@ if SaveSol == 1
 	fre = open("exact_f$f-r$r-h$hx-real.dat","w");
 	fie = open("exact_f$f-r$r-h$hx-imag.dat","w");
 
+
 	for tt = 1 : size(pf,1)
 		if p[findind2[tt],1] <= xI && p[findind2[tt],1] >=  xstar + 6*lambda_0
 	        print(fr ,real(u[tt])," ")
@@ -303,5 +307,17 @@ if SaveSol == 1
 end
 # Saving solution end.
 
-return
-#function end
+# println(size(ufull[findall(x -> x != 0, vec(DOF))]))
+# ufull[findall(x -> x != 0, vec(DOF))] = u;
+# Visualize solution using 2D scatter plot with color representing magnitude
+uI = u[1:size(p,1)]
+scatter(p[:,1], p[:,2],
+    marker_z=abs.(vec(uI)),
+    markersize=2,
+    markerstrokewidth=0,
+    xlabel="x",
+    ylabel="y",
+    title="Solution Magnitude",
+    colorbar=true,
+    aspect_ratio=:equal
+)
